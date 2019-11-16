@@ -1,9 +1,9 @@
 // server.js
 // load the things we need
-var express = require('express');
+const express = require('express');
 const path = require('path');
-var fs = require('fs');
-var app = express();
+const fs = require('fs');
+const app = express();
 const port = process.env.PORT || 5000;
 
 // set the view engine to ejs
@@ -54,12 +54,12 @@ function readGetDateFile(req,res){
   }
   else {
     text = "The cost is ";
+    cost = "<b>$" + cost + "</b>";
   }
-
   res.render('pages/displayRate',
   {
-    cost: cost,
-    text: text
+    text: text,
+    cost: cost
   });
 }
 
@@ -183,6 +183,7 @@ app.get('/getData', readGetDateFile);
 
 //Include images
 app.use('/img', express.static(path.join(__dirname, 'public/img')))
+app.use('/css', express.static(path.join(__dirname, 'public/css')))
 
 app.listen(port);
 console.log("listening on port " + port);
